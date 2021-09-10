@@ -63,11 +63,10 @@
   border-radius: 4px;
 }
 
-.label {
-}
 .value-editor {
   padding: 15px 0 0;
 }
+
 .value-editor-range {
   position: relative;
   $h: 10px;
@@ -133,6 +132,7 @@
     cursor: pointer;
   }
 }
+
 .value-editor-labels {
   position: relative;
   height: 60px;
@@ -153,10 +153,11 @@
     }
   }
 }
+
 .value-editor-values {
   display: flex;
   width: 100%;
-  align-items: end;
+  align-items: flex-end;
 
   .value-editor-value {
     font-weight: bold;
@@ -179,3 +180,5 @@
     }
   }
 }
+/*
+*/
