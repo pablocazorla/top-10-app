@@ -1,0 +1,18 @@
+body {
+  overflow-y: scroll;
+}
+.main {
+  position: relative;
+  background-color: #eee;
+  min-height: 100vh;
+}
+.container-fluid {
+  position: relative;
+  padding-left: 5%;
+  padding-right: 5%;
+}
+.wrap {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
