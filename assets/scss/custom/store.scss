@@ -1,0 +1,20 @@
+.create-store {
+  padding: 25px 0;
+  .btn {
+    transition: none;
+    &:focus {
+      box-shadow: 0 0 0 2px $primary;
+    }
+  }
+}
+.store-list {
+  padding-top: 15px;
+}
+.select-store {
+  position: relative;
+  .fa {
+    position: absolute;
+    top: 12px;
+    right: 9px;
+  }
+}

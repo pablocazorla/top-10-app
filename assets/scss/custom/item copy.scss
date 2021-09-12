@@ -180,5 +180,29 @@
     }
   }
 }
-/*
-*/
+
+.game-selector {
+  position: relative;
+  .game-selector-pad {
+    position: absolute;
+    z-index: 100;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    //min-height: 200px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 14px rgba(26, 18, 18, 0.2);
+  }
+  .game-selector-item {
+    padding: 5px 15px;
+    line-height: 1.1;
+    color: #333;
+    cursor: pointer;
+    &:hover {
+      color: #000;
+      font-weight: bold;
+      background-color: rgba($primary, 0.2);
+    }
+  }
+}

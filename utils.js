@@ -35,4 +35,19 @@ export const storage = (() => {
   };
 })();
 
+export const camelize = (str) => {
+  return str
+    .toLowerCase()
+    .replace(/á+/g, "a")
+    .replace(/é+/g, "e")
+    .replace(/í+/g, "i")
+    .replace(/ó+/g, "o")
+    .replace(/ú+/g, "u")
+    .replace(/ñ+/g, "n")
+    .replace(/(?:^\w|[A-Z]|\b\w)/g, function (word, index) {
+      return index === 0 ? word.toLowerCase() : word.toUpperCase();
+    })
+    .replace(/\s+/g, "");
+};
+
 export default {};
