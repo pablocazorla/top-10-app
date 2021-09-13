@@ -18,3 +18,30 @@
     right: 9px;
   }
 }
+.load-store {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+
+  .load-store_text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  input {
+    position: relative;
+    z-index: 10;
+    background-color: #fff;
+    opacity: 0;
+    cursor: pointer;
+  }
+  a {
+    text-decoration: none;
+  }
+  &:hover {
+    a {
+      text-decoration: underline;
+    }
+  }
+}

@@ -3,7 +3,7 @@ import { Row, Col } from "reactstrap";
 import indice from "data/indice";
 
 const colSizes = {
-  rank: true,
+  rank: 1,
   name: 4,
   editorial: 2,
   priceType: true,
@@ -18,6 +18,8 @@ const ItemView = ({
     editorial: "",
     price: 0,
     count: 1,
+    realCount: null,
+    stores: null,
   },
   rank,
   onEdit,
@@ -31,9 +33,9 @@ const ItemView = ({
       : "p3";
 
   const priceTypes = {
-    p1: `Menos de ${indice.gelato}`,
-    p2: `Entre ${indice.gelato} y ${indice.carcassonne}`,
-    p3: `Más de ${indice.carcassonne}`,
+    p1: `Menos de ${indice.gelato}$`,
+    p2: `Entre ${indice.gelato}$ y ${indice.carcassonne}$`,
+    p3: `Más de ${indice.carcassonne}$`,
   };
 
   return (
@@ -71,14 +73,40 @@ const ItemView = ({
       </div>
       <div className="item-box_body">
         <Row className="g-2 align-items-center">
-          {rank ? <Col xs={colSizes.rank}>{rank}</Col> : null}
-          <Col xs={colSizes.name}>{itemData.name}</Col>
+          {rank ? (
+            <Col xs={colSizes.rank}>
+              <div className="rank">{rank}</div>
+            </Col>
+          ) : null}
+          <Col xs={colSizes.name}>
+            {itemData.name}
+            {itemData.stores ? (
+              <div className="store-list-name">
+                {itemData.stores.map((stname) => {
+                  return (
+                    <span className="store-name" key={stname}>
+                      {stname}
+                    </span>
+                  );
+                })}
+              </div>
+            ) : null}
+          </Col>
           <Col xs={colSizes.editorial}>{itemData.editorial}</Col>
           <Col xs={colSizes.priceType}>{priceTypes[pt]}</Col>
           {itemData.price <= indice.gelato ? (
-            <Col xs={colSizes.price}>{itemData.price}</Col>
+            <Col xs={colSizes.price}>{itemData.price}$</Col>
           ) : null}
-          <Col xs={colSizes.count}>{itemData.count}</Col>
+          <Col xs={colSizes.count}>
+            {itemData.realCount ? (
+              <>
+                {itemData.count}
+                <span className="op-4"> : {itemData.realCount}</span>
+              </>
+            ) : (
+              itemData.count
+            )}
+          </Col>
           {onEdit || onDelete ? (
             <Col className="text-end" xs={colSizes.actions}>
               {onEdit ? (

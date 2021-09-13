@@ -1,0 +1,28 @@
+.header {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-color: #ccc;
+  background-image: url("../../img/fondo.png");
+  height: 100px;
+  padding: 10px;
+}
+.img-vertical {
+  display: block;
+  width: auto;
+  height: 100%;
+}
+.img-auto {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.h100 {
+  height: 100%;
+}
+.tdr-content {
+  max-width: 200px;
+}

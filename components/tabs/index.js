@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import classnames from "classnames";
 
-const Tabs = ({ tabs = [] }) => {
-  const [current, setCurrent] = useState(0);
+const Tabs = ({ tabs = [], initialTab = 0, onChangeTab = () => {} }) => {
+  const [current, setCurrent] = useState(initialTab);
+
+  useEffect(() => {
+    setCurrent(initialTab);
+  }, [initialTab]);
 
   return (
     <div className="tabscomp">
@@ -16,6 +20,7 @@ const Tabs = ({ tabs = [] }) => {
               key={k}
               onClick={() => {
                 setCurrent(k);
+                onChangeTab(k);
               }}
             >
               {tab.title}

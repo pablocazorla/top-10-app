@@ -1,9 +1,10 @@
-const storageName = "top10app";
+const storageNameDefault = "top10app";
 
 export const storage = (() => {
   return {
-    get: () => {
+    get: (stname) => {
       if (typeof window !== "undefined") {
+        const storageName = stname || storageNameDefault;
         const v = localStorage.getItem(storageName);
         if (v) {
           return JSON.parse(v);
@@ -11,13 +12,15 @@ export const storage = (() => {
         return "none";
       }
     },
-    set: (value) => {
+    set: (value, stname) => {
       if (typeof window !== "undefined") {
+        const storageName = stname || storageNameDefault;
         localStorage.setItem(storageName, JSON.stringify(value));
       }
     },
-    update: (newValues) => {
+    update: (newValues, stname) => {
       if (typeof window !== "undefined") {
+        const storageName = stname || storageNameDefault;
         const v = localStorage.getItem(storageName);
         const currentJSON = v ? JSON.parse(v) : {};
         const o = {
@@ -27,8 +30,9 @@ export const storage = (() => {
         localStorage.setItem(storageName, JSON.stringify(o));
       }
     },
-    delete: () => {
+    delete: (stname) => {
       if (typeof window !== "undefined") {
+        const storageName = stname || storageNameDefault;
         localStorage.removeItem(storageName);
       }
     },
@@ -48,6 +52,16 @@ export const camelize = (str) => {
       return index === 0 ? word.toLowerCase() : word.toUpperCase();
     })
     .replace(/\s+/g, "");
+};
+
+export const downloadFile = (content, filename) => {
+  var data =
+    "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(content));
+  console.log(content);
+  const a = document.createElement("a");
+  a.setAttribute("href", "data:" + data);
+  a.setAttribute("download", filename);
+  a.click();
 };
 
 export default {};

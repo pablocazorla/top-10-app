@@ -33,6 +33,26 @@
       margin-left: 10px;
       cursor: pointer;
     }
+
+    .store-list-name {
+      font-size: 11px;
+      font-style: italic;
+      color: #555;
+      font-weight: normal;
+      line-height: 1.2;
+
+      .store-name {
+        &:before {
+          content: ", ";
+        }
+
+        &:first-child {
+          &:before {
+            content: "";
+          }
+        }
+      }
+    }
   }
   input,
   select {
@@ -84,6 +104,11 @@
       top: 7px;
       cursor: default;
     }
+  }
+  .rank {
+    font-size: 24px;
+    font-weight: bold;
+    padding: 5px 0;
   }
 
   &.p1 {

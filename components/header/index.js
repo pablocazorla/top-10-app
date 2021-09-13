@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
-  Collapse,
-  Navbar,
+  Row,
+  Col,
   NavbarToggler,
   NavbarBrand,
   Nav,
@@ -15,24 +15,19 @@ const Header = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <Navbar color="dark" dark expand="md">
-      <NavbarBrand href="/" className="ps-5 text-bold">
-        Top 10 App
-      </NavbarBrand>
-      <NavbarToggler onClick={toggle} />
-      <Collapse isOpen={isOpen} navbar>
-        <Nav className="ms-auto pe-5" navbar>
-          <NavItem className="pe-3">
-            <Button color="danger" outline>
-              Borrar
-            </Button>
-          </NavItem>
-          <NavItem>
-            <Button color="success">Exportar</Button>
-          </NavItem>
-        </Nav>
-      </Collapse>
-    </Navbar>
+    <div className="header">
+      <Row className="h100 justify-content-center aling-items-center g-2">
+        <Col xs="auto" className="h100">
+          <img src="/img/logo.png" alt="" className="img-vertical" />
+        </Col>
+        <Col xs="auto" className="h100">
+          <h1 className="text-white m-0 p-0 ps-2">Top 10 de las tiendas</h1>
+          <div className="tdr-content">
+            <img src="/img/tdr.png" alt="" className="img-auto" />
+          </div>
+        </Col>
+      </Row>
+    </div>
   );
 };
 
