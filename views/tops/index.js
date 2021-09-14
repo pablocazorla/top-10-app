@@ -2,7 +2,26 @@ import { useState, useEffect } from "react";
 import { Row, Col, Button } from "reactstrap";
 import indice from "data/indice";
 import List from "./list";
-import { downloadFile } from "utils";
+import { downloadFile, lowerify } from "utils";
+
+const formatSrc = (name) => {
+  return lowerify(name);
+};
+
+const formatToPresentation = (listRaw) => {
+  const o = { collection: [] };
+  listRaw.forEach((item) => {
+    const { name, count } = item;
+    const a = {
+      name,
+      count,
+      src: formatSrc(name),
+    };
+    o.collection.push(a);
+  });
+
+  return o;
+};
 
 const Tops = ({ data }) => {
   const [items1, setItems1] = useState([]);
@@ -74,7 +93,10 @@ const Tops = ({ data }) => {
                 size="lg"
                 color="primary"
                 onClick={() => {
-                  downloadFile(items1, "top10_baratos.json");
+                  downloadFile(
+                    formatToPresentation(items1),
+                    "top10_baratos.json"
+                  );
                 }}
               >
                 <i className="fa fa-download me-2" />
@@ -91,7 +113,10 @@ const Tops = ({ data }) => {
                 size="lg"
                 color="primary"
                 onClick={() => {
-                  downloadFile(items2, "top10_caros.json");
+                  downloadFile(
+                    formatToPresentation(items2),
+                    "top10_caros.json"
+                  );
                 }}
               >
                 <i className="fa fa-download me-2" />

@@ -53,6 +53,25 @@ export const camelize = (str) => {
     })
     .replace(/\s+/g, "");
 };
+export const lowerify = (str) => {
+  return str
+    .toLowerCase()
+    .replace(/á+/g, "a")
+    .replace(/é+/g, "e")
+    .replace(/í+/g, "i")
+    .replace(/ó+/g, "o")
+    .replace(/ú+/g, "u")
+    .replace(/ñ+/g, "n")
+    .replace(/!+/g, "-")
+    .replace(/¡+/g, "-")
+    .replace(/¿+/g, "-")
+    .replace(/:+/g, "-")
+    .replace(/\.+/g, "-")
+    .replace(/,+/g, "-")
+    .replace(/;+/g, "-")
+    .replace(/\?+/g, "-")
+    .replace(/\s+/g, "-");
+};
 
 export const downloadFile = (content, filename) => {
   var data =
