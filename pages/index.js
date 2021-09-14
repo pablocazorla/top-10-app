@@ -1,12 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
+import Layout from "layout";
 import { storage } from "utils";
-import Head from "next/head";
-import { Container } from "reactstrap";
-import Header from "components/header";
 import Tabs from "components/tabs";
 import Stores from "views/stores";
-// import Results from "views/results";
-// import Tops from "views/tops";
 
 export default function Home() {
   const [data, setData] = useState({
@@ -108,35 +104,25 @@ export default function Home() {
   );
 
   return (
-    <>
-      <Head>
-        <title>Top 10 App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="main">
-        <Header />
-        <Container fluid>
-          <Tabs
-            tabs={[
-              {
-                title: "Cargar tienda",
-                content: (
-                  <Stores
-                    isAdmin={false}
-                    data={data}
-                    onAddStore={onAddStore}
-                    onDeleteStore={onDeleteStore}
-                    onAddItem={onAddItem}
-                    onEditItem={onEditItem}
-                    onDeleteItem={onDeleteItem}
-                  />
-                ),
-              },
-            ]}
-          />
-        </Container>
-      </main>
-    </>
+    <Layout>
+      <Tabs
+        tabs={[
+          {
+            title: "Cargar tienda",
+            content: (
+              <Stores
+                isAdmin={false}
+                data={data}
+                onAddStore={onAddStore}
+                onDeleteStore={onDeleteStore}
+                onAddItem={onAddItem}
+                onEditItem={onEditItem}
+                onDeleteItem={onDeleteItem}
+              />
+            ),
+          },
+        ]}
+      />
+    </Layout>
   );
 }

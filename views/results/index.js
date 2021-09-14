@@ -51,10 +51,10 @@ const Resultados = ({ data }) => {
   return (
     <div className="results-container">
       <Row className="align-items-stretch">
-        <Col md={6} className="pe-md-5 border-left">
+        <Col xl={6} className="pe-xl-5 border-left">
           <List itemList={items1} type={1} />
         </Col>
-        <Col md={6} className="ps-md-5">
+        <Col xl={6} className="ps-xl-5">
           <List itemList={items2} type={2} />
         </Col>
       </Row>

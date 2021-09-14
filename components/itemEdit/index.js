@@ -28,6 +28,7 @@ const ItemEdit = ({
 }) => {
   const inputPriceRef = useRef(null);
 
+  const [isNew, setIsNew] = useState(false);
   const [name, setName] = useState(itemData.name);
   const [editorial, setEditorial] = useState(itemData.editorial);
   const [price, setPrice] = useState(itemData.price);
@@ -75,155 +76,156 @@ const ItemEdit = ({
     }
 
     if (!withErrors) {
-      onSave({
+      const o = {
         name,
         editorial,
         price,
         count,
-      });
+      };
+      if (isNew) {
+        o.isNew = true;
+      }
+      onSave(o);
     }
-  }, [name, editorial, price, priceType, count, onSave]);
+  }, [name, editorial, price, priceType, count, isNew, onSave]);
 
   return (
     <div className={classnames("item-box", priceType)}>
-      <div className="item-box_header">
-        <Row className="g-2 align-items-center">
-          <Col className="m-0" xs={colSizes.name}>
-            Nombre
-          </Col>
-          <Col className="m-0" xs={colSizes.editorial}>
-            Editorial
-          </Col>
-          <Col className="m-0" xs={colSizes.priceType}>
-            Escala de precio ($ PVP)
-          </Col>
-          {priceType === "p1" ? (
-            <Col className="m-0" xs={colSizes.price}>
-              Precio en $
-            </Col>
-          ) : null}
-          <Col className="m-0" xs={colSizes.count}>
-            Cantidad
-          </Col>
-          <Col className="m-0 text-end" xs={colSizes.actions}>
-            Acciones
-          </Col>
-        </Row>
-      </div>
-      <div className="item-box_body py-2">
-        <Row className="g-2">
-          <Col xs={colSizes.name}>
-            <TextSelector
-              collection={itemOptions}
-              value={name}
-              focus={inFocusStart}
-              onChange={(val) => {
-                setNameError(false);
-                setName(val.name);
-                if (val.editorial) {
-                  setEditorial(val.editorial);
-                }
-              }}
-            />
-            {nameError && <div className="item-error">Error</div>}
-          </Col>
-          <Col xs={colSizes.editorial}>
-            <TextSelector
-              collection={editorialOptions}
-              value={editorial}
-              limit={1}
-              onChange={(val) => {
-                setEditorialError(false);
-                setEditorial(val.name);
-              }}
-            />
-            {editorialError && <div className="item-error">Error</div>}
-          </Col>
-          <Col xs={colSizes.priceType}>
-            <div className="select-wrap">
-              <select
-                value={priceType}
-                onChange={(e) => {
-                  const p = e.target.value;
-                  const newPrice =
-                    p === "p0"
-                      ? 0
-                      : p === "p1"
-                      ? 0
-                      : p === "p2"
-                      ? indice.gelato + 10
-                      : indice.carcassonne + 10;
-                  setPriceTypeError(false);
-                  setPriceType(p);
-                  setPrice(newPrice);
-                  setTimeout(() => {
-                    if (inputPriceRef && inputPriceRef.current) {
-                      inputPriceRef.current.focus();
-                    }
-                  }, 200);
-                }}
-              >
-                <option value="p0">Seleccionar</option>
-                <option value="p1">Menos de ${indice.gelato}</option>
-                <option value="p2">
-                  Entre ${indice.gelato} y ${indice.carcassonne}
-                </option>
-                <option value="p3">Más de ${indice.carcassonne}</option>
-              </select>
-              <i className="fa fa-caret-down" />
-            </div>
-            {priceTypeError && <div className="item-error">Error</div>}
-          </Col>
-
-          {priceType === "p1" ? (
-            <Col xs={colSizes.price}>
-              <input
-                type="number"
-                value={price}
-                ref={inputPriceRef}
-                min="0"
-                max={indice.gelato - 1}
-                className="text-center"
-                onChange={(e) => {
-                  setPrice(parseInt(e.target.value, 10));
+      <div className="item-box_body for-editor">
+        <Row className="g-0">
+          <Col lg={colSizes.name}>
+            <div className="col-header first">Nombre</div>
+            <div className="col-content first">
+              <TextSelector
+                collection={itemOptions}
+                placeholder="Nombre del item"
+                value={name}
+                focus={inFocusStart}
+                onChange={(val, countOptions) => {
+                  setIsNew(countOptions === 0);
+                  setNameError(false);
+                  setName(val.name);
+                  if (val.editorial) {
+                    setEditorial(val.editorial);
+                  }
                 }}
               />
-              {priceError && <div className="item-error">Error</div>}
+              {nameError && <div className="item-error">Error</div>}
+            </div>
+          </Col>
+          <Col lg={colSizes.editorial}>
+            <div className="col-header">Editorial</div>
+            <div className="col-content">
+              <TextSelector
+                collection={editorialOptions}
+                placeholder="Editorial"
+                value={editorial}
+                limit={1}
+                onChange={(val) => {
+                  setEditorialError(false);
+                  setEditorial(val.name);
+                }}
+              />
+              {editorialError && <div className="item-error">Error</div>}
+            </div>
+          </Col>
+          <Col lg={colSizes.priceType}>
+            <div className="col-header">Escala de precio ($ PVP)</div>
+            <div className="col-content">
+              <div className="select-wrap">
+                <select
+                  value={priceType}
+                  onChange={(e) => {
+                    const p = e.target.value;
+                    const newPrice =
+                      p === "p0"
+                        ? 0
+                        : p === "p1"
+                        ? 0
+                        : p === "p2"
+                        ? indice.gelato + 10
+                        : indice.carcassonne + 10;
+                    setPriceTypeError(false);
+                    setPriceType(p);
+                    setPrice(newPrice);
+                    setTimeout(() => {
+                      if (inputPriceRef && inputPriceRef.current) {
+                        inputPriceRef.current.focus();
+                      }
+                    }, 200);
+                  }}
+                >
+                  <option value="p0">Seleccionar</option>
+                  <option value="p1">Menos de ${indice.gelato}</option>
+                  <option value="p2">
+                    Entre ${indice.gelato} y ${indice.carcassonne}
+                  </option>
+                  <option value="p3">Más de ${indice.carcassonne}</option>
+                </select>
+                <i className="fa fa-caret-down" />
+              </div>
+              {priceTypeError && <div className="item-error">Error</div>}
+            </div>
+          </Col>
+
+          {priceType === "p1" ? (
+            <Col lg={colSizes.price}>
+              <div className="col-header">Precio en $</div>
+              <div className="col-content">
+                <input
+                  type="number"
+                  value={price}
+                  ref={inputPriceRef}
+                  min="0"
+                  max={indice.gelato - 1}
+                  className="text-center"
+                  onChange={(e) => {
+                    setPrice(parseInt(e.target.value, 10));
+                  }}
+                />
+                {priceError && <div className="item-error">Error</div>}
+              </div>
             </Col>
           ) : null}
 
-          <Col xs={colSizes.count}>
-            <input
-              type="number"
-              value={count}
-              className="text-center"
-              min="1"
-              max="999"
-              onChange={(e) => {
-                setCountError(false);
-                setCount(parseInt(e.target.value, 10));
-              }}
-            />
-            {countError && <div className="item-error">Error</div>}
+          <Col lg={colSizes.count}>
+            <div className="col-header">Cantidad</div>
+            <div className="col-content">
+              <input
+                type="number"
+                value={count}
+                className="text-center"
+                min="1"
+                max="999"
+                onChange={(e) => {
+                  setCountError(false);
+                  setCount(parseInt(e.target.value, 10));
+                }}
+              />
+              {countError && <div className="item-error">Error</div>}
+            </div>
           </Col>
-          <Col className="text-end" xs={colSizes.actions}>
-            <div className="btn-container">
-              <Button
-                color="default"
-                size="sm"
-                className="px-2 py-1 me-1"
-                onClick={onCancel}
-              >
-                Cancelar
-              </Button>
-              <Button
-                color="success"
-                size="sm"
-                className="px-2 py-1"
-                onClick={onSaveData}
-              >
-                Guardar
-              </Button>
+          <Col className="text-end" lg={colSizes.actions}>
+            <div className="col-header last">Acciones</div>
+            <div className="col-content last">
+              <div className="btn-container">
+                <Button
+                  color="default"
+                  size="sm"
+                  className="px-2 py-1 me-1"
+                  onClick={onCancel}
+                >
+                  Cancelar
+                </Button>
+                <Button
+                  color="success"
+                  size="sm"
+                  className="px-2 py-1"
+                  onClick={onSaveData}
+                >
+                  Guardar
+                </Button>
+              </div>
             </div>
           </Col>
         </Row>

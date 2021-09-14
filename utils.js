@@ -57,7 +57,6 @@ export const camelize = (str) => {
 export const downloadFile = (content, filename) => {
   var data =
     "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(content));
-  console.log(content);
   const a = document.createElement("a");
   a.setAttribute("href", "data:" + data);
   a.setAttribute("download", filename);

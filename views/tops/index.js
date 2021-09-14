@@ -66,7 +66,7 @@ const Tops = ({ data }) => {
   return (
     <div className="tops-container">
       <Row className="align-items-stretch">
-        <Col md={6} className="pe-md-5 border-left">
+        <Col xl={6} className="pe-md-5 border-left">
           <List itemList={items1} type={1} />
           {items2.length > 0 ? (
             <div className="tops-download">
@@ -83,7 +83,7 @@ const Tops = ({ data }) => {
             </div>
           ) : null}
         </Col>
-        <Col md={6} className="ps-md-5">
+        <Col xl={6} className="ps-md-5">
           <List itemList={items2} type={2} />
           {items2.length > 0 ? (
             <div className="tops-download">

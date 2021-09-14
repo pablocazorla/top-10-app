@@ -1,9 +1,19 @@
-import { useState, useEffect } from "react";
-import { Button, Input } from "reactstrap";
+import { useState, useRef } from "react";
+import classnames from "classnames";
+import { Button } from "reactstrap";
 import ItemEdit from "components/itemEdit";
 
 const CreateItem = ({ onAddItem, idStore }) => {
   const [open, setOpen] = useState(false);
+  const btnRef = useRef(null);
+
+  const setFocus = () => {
+    setTimeout(() => {
+      if (btnRef && btnRef.current) {
+        btnRef.current.focus();
+      }
+    }, 120);
+  };
 
   return (
     <div className="create-item">
@@ -14,28 +24,30 @@ const CreateItem = ({ onAddItem, idStore }) => {
           <ItemEdit
             inFocusStart
             onCancel={() => {
+              setFocus();
               setOpen(false);
             }}
             onSave={(newItemData) => {
-              setOpen(false);
+              setFocus();
               onAddItem(idStore, newItemData);
+              setOpen(false);
             }}
           />
         </>
-      ) : (
-        <div className="text-center">
-          <Button
-            color="primary"
-            outline
-            onClick={() => {
-              setOpen(true);
-            }}
-          >
-            <i className="fa fa-rebel me-2" />
-            Nuevo Item
-          </Button>
-        </div>
-      )}
+      ) : null}
+      <div className={classnames("text-center", { "d-none": open })}>
+        <button
+          type="button"
+          className="btn btn-outline-primary new-item-btn"
+          ref={btnRef}
+          onClick={() => {
+            setOpen(true);
+          }}
+        >
+          <i className="fa fa-rebel me-2"></i>
+          Nuevo Item
+        </button>
+      </div>
     </div>
   );
 };

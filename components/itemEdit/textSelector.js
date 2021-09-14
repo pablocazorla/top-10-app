@@ -7,6 +7,7 @@ const TextSelector = ({
   onChange,
   value = "",
   limit = 3,
+  placeholder,
 }) => {
   const inputRef = useRef(null);
 
@@ -36,13 +37,23 @@ const TextSelector = ({
     (e) => {
       if (e.keyCode === 13 && focused && filteredCollection.length >= 1) {
         inputRef.current.blur();
-        onChange(filteredCollection[focusedToEnterId]);
+        onChange(
+          filteredCollection[focusedToEnterId],
+          filteredCollection.length
+        );
       }
     },
     [focused, filteredCollection, focusedToEnterId, onChange]
   );
   const onKeyDown = useCallback(
     (e) => {
+      if (e.keyCode === 9 && focused && filteredCollection.length >= 1) {
+        inputRef.current.blur();
+        onChange(
+          filteredCollection[focusedToEnterId],
+          filteredCollection.length
+        );
+      }
       if (focused && filteredCollection.length > 1) {
         if (e.keyCode === 38) {
           e.preventDefault();
@@ -60,7 +71,7 @@ const TextSelector = ({
         }
       }
     },
-    [focused, filteredCollection, focusedToEnterId]
+    [focused, filteredCollection, focusedToEnterId, onChange]
   );
 
   useEffect(() => {
@@ -89,6 +100,7 @@ const TextSelector = ({
     <div className="text-selector">
       <input
         type="text"
+        placeholder={placeholder}
         value={value}
         ref={inputRef}
         onFocus={() => {
@@ -103,7 +115,7 @@ const TextSelector = ({
           }, 400);
         }}
         onChange={(e) => {
-          onChange({ name: e.target.value });
+          onChange({ name: e.target.value }, filteredCollection.length);
         }}
       />
       {filteredCollection.length > 0 && showCollection ? (
@@ -116,7 +128,7 @@ const TextSelector = ({
                 })}
                 key={k}
                 onClick={() => {
-                  onChange(g);
+                  onChange(g, filteredCollection.length);
                 }}
               >
                 {g.name}

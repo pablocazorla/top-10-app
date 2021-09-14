@@ -55,7 +55,7 @@ const Stores = ({
                   transform: !allOpen ? "rotate(-90deg)" : "",
                 }}
               />
-              {allOpen ? "Cerrar" : "Abrir"} todo
+              {allOpen ? "Minimizar" : "Maximizar"} todo
             </Button>
           </Col>
         ) : null}

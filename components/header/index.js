@@ -16,11 +16,13 @@ const Header = (props) => {
 
   return (
     <div className="header">
-      <Row className="h100 justify-content-center aling-items-center g-2">
+      <Row className="justify-content-center align-items-center">
         <Col xs="auto" className="h100">
-          <img src="/img/logo.png" alt="" className="img-vertical" />
+          <div style={{ height: 100 }}>
+            <img src="/img/logo.png" alt="" className="img-vertical" />
+          </div>
         </Col>
-        <Col xs="auto" className="h100">
+        <Col xs="auto">
           <h1 className="text-white m-0 p-0 ps-2">Top 10 de las tiendas</h1>
           <div className="tdr-content">
             <img src="/img/tdr.png" alt="" className="img-auto" />

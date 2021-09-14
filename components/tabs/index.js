@@ -10,7 +10,7 @@ const Tabs = ({ tabs = [], initialTab = 0, onChangeTab = () => {} }) => {
 
   return (
     <div className="tabscomp">
-      <div className="tabscomp__header">
+      <div className="tabscomp__header align-items-end">
         {tabs.map((tab, k) => {
           return (
             <div

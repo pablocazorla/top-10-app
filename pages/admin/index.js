@@ -1,8 +1,7 @@
 import { useState, useEffect, useCallback } from "react";
+import Layout from "layout";
 import { storage } from "utils";
-import Head from "next/head";
-import { Container, Input, Button } from "reactstrap";
-import Header from "components/header";
+import { Input, Button } from "reactstrap";
 import Tabs from "components/tabs";
 import Stores from "views/stores";
 import Results from "views/results";
@@ -162,69 +161,59 @@ export default function Home() {
   }, [configData, newPassword]);
 
   return (
-    <>
-      <Head>
-        <title>Top 10 App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <main className="main">
-        <Header />
-        <Container fluid>
-          {loadedconfigDataStored &&
-            (configData.password === password ? (
-              <Tabs
-                initialTab={configData.initialTab}
-                onChangeTab={onChangeTab}
-                tabs={[
-                  {
-                    title: "Cargar tienda",
-                    content: (
-                      <Stores
-                        data={data}
-                        onAddStore={onAddStore}
-                        onDeleteStore={onDeleteStore}
-                        onAddItem={onAddItem}
-                        onEditItem={onEditItem}
-                        onDeleteItem={onDeleteItem}
-                        onLoadFileStores={onLoadFileStores}
-                      />
-                    ),
-                  },
-                  {
-                    title: "Resultados parciales",
-                    content: <Results data={data} />,
-                  },
-                  {
-                    title: "Tops",
-                    content: <Tops data={data} />,
-                  },
-                ]}
-              />
-            ) : (
-              <div className="admin-pass-box">
-                <label className="text-bold">Contraseña:</label>
-                <Input
-                  type="password"
-                  value={newPassword}
-                  onChange={(e) => {
-                    seterrorNewPassword(false);
-                    setNewPassword(e.target.value);
-                  }}
-                  className="mb-3"
-                />
-                {errornewPassword && (
-                  <div className="text-center text-danger py-2">
-                    Contraseña incorrecta
-                  </div>
-                )}
-                <Button color="primary" block onClick={onSetPassword}>
-                  Ingresar
-                </Button>
+    <Layout>
+      {loadedconfigDataStored &&
+        (configData.password === password ? (
+          <Tabs
+            initialTab={configData.initialTab}
+            onChangeTab={onChangeTab}
+            tabs={[
+              {
+                title: "Cargar tienda",
+                content: (
+                  <Stores
+                    data={data}
+                    onAddStore={onAddStore}
+                    onDeleteStore={onDeleteStore}
+                    onAddItem={onAddItem}
+                    onEditItem={onEditItem}
+                    onDeleteItem={onDeleteItem}
+                    onLoadFileStores={onLoadFileStores}
+                  />
+                ),
+              },
+              {
+                title: "Resultados parciales",
+                content: <Results data={data} />,
+              },
+              {
+                title: "Tops",
+                content: <Tops data={data} />,
+              },
+            ]}
+          />
+        ) : (
+          <div className="admin-pass-box">
+            <label className="text-bold">Contraseña:</label>
+            <Input
+              type="password"
+              value={newPassword}
+              onChange={(e) => {
+                seterrorNewPassword(false);
+                setNewPassword(e.target.value);
+              }}
+              className="mb-3"
+            />
+            {errornewPassword && (
+              <div className="text-center text-danger py-2">
+                Contraseña incorrecta
               </div>
-            ))}
-        </Container>
-      </main>
-    </>
+            )}
+            <Button color="primary" block onClick={onSetPassword}>
+              Ingresar
+            </Button>
+          </div>
+        ))}
+    </Layout>
   );
 }

@@ -3,13 +3,25 @@ import { Row, Col } from "reactstrap";
 import indice from "data/indice";
 
 const colSizes = {
-  rank: 1,
-  name: 4,
-  editorial: 2,
-  priceType: true,
-  price: 1,
-  count: 1,
-  actions: true,
+  lg: {
+    rank: 1,
+    name: 4,
+    editorial: 2,
+    priceType: true,
+    price: 2,
+    count: 1,
+    actions: true,
+  },
+
+  xs: {
+    rank: 1,
+    name: 7,
+    editorial: 5,
+    priceType: true,
+    price: 2,
+    count: 2,
+    actions: true,
+  },
 };
 
 const ItemView = ({
@@ -40,97 +52,111 @@ const ItemView = ({
 
   return (
     <div className={classnames("item-box", pt)}>
-      <div className="item-box_header">
-        <Row className="g-2 align-items-center">
-          {rank ? (
-            <Col className="m-0" xs={colSizes.rank}>
-              Puesto
-            </Col>
-          ) : null}
-          <Col className="m-0" xs={colSizes.name}>
-            Nombre
-          </Col>
-          <Col className="m-0" xs={colSizes.editorial}>
-            Editorial
-          </Col>
-          <Col className="m-0" xs={colSizes.priceType}>
-            Escala de precio ($ PVP)
-          </Col>
-          {itemData.price <= indice.gelato ? (
-            <Col className="m-0" xs={colSizes.price}>
-              Precio en $
-            </Col>
-          ) : null}
-          <Col className="m-0" xs={colSizes.count}>
-            Cantidad
-          </Col>
-          {onEdit || onDelete ? (
-            <Col className="m-0 text-end" xs={colSizes.actions}>
-              Acciones
-            </Col>
-          ) : null}
-        </Row>
-      </div>
       <div className="item-box_body">
-        <Row className="g-2 align-items-center">
+        <Row className="g-0">
           {rank ? (
-            <Col xs={colSizes.rank}>
-              <div className="rank">{rank}</div>
+            <Col xs={colSizes.xs.rank} lg={colSizes.lg.rank}>
+              <div className="col-header first">Puesto</div>
+              <div className="col-content first">
+                <div className="rank">{rank}</div>
+              </div>
             </Col>
           ) : null}
-          <Col xs={colSizes.name}>
-            {itemData.name}
-            {itemData.stores ? (
-              <div className="store-list-name">
-                {itemData.stores.map((stname) => {
-                  return (
-                    <span className="store-name" key={stname}>
-                      {stname}
-                    </span>
-                  );
-                })}
-              </div>
-            ) : null}
+          <Col
+            xs={rank ? colSizes.xs.name - colSizes.xs.rank : colSizes.xs.name}
+            lg={colSizes.lg.name}
+          >
+            <div className="col-header first">Nombre</div>
+            <div className="col-content first">
+              {itemData.name}{" "}
+              {itemData.isNew ? (
+                <i className="fa fa-circle text-primary small" title="Nuevo" />
+              ) : null}
+              {itemData.stores ? (
+                <div className="store-list-name">
+                  {itemData.stores.map((stname) => {
+                    return (
+                      <span className="store-name" key={stname}>
+                        {stname}
+                      </span>
+                    );
+                  })}
+                </div>
+              ) : null}
+            </div>
           </Col>
-          <Col xs={colSizes.editorial}>{itemData.editorial}</Col>
-          <Col xs={colSizes.priceType}>{priceTypes[pt]}</Col>
+          <Col
+            className="mb-xs-2"
+            xs={colSizes.xs.editorial}
+            lg={colSizes.lg.editorial}
+          >
+            <div className="col-header">Editorial</div>
+            <div className="col-content unwrap">{itemData.editorial}</div>
+          </Col>
+          <Col xs={colSizes.xs.priceType} lg={colSizes.lg.priceType}>
+            <div className="col-header">Escala de precio ($ PVP)</div>
+            <div className="col-content unwrap">{priceTypes[pt]}</div>
+          </Col>
           {itemData.price <= indice.gelato ? (
-            <Col xs={colSizes.price}>{itemData.price}$</Col>
+            <Col xs={colSizes.xs.price} lg={colSizes.lg.price}>
+              <div className="col-header unwrap">Precio en $</div>
+              <div className="col-content unwrap">{itemData.price}$</div>
+            </Col>
           ) : null}
-          <Col xs={colSizes.count}>
-            {itemData.realCount ? (
-              <>
-                {itemData.count}
-                <span className="op-4"> : {itemData.realCount}</span>
-              </>
-            ) : (
-              itemData.count
-            )}
+          <Col xs={colSizes.xs.count} lg={colSizes.lg.count}>
+            <div
+              className={classnames("col-header", {
+                last: !onEdit && !onDelete,
+              })}
+            >
+              Cantidad
+            </div>
+            <div
+              className={classnames("col-content unwrap", {
+                last: !onEdit && !onDelete,
+              })}
+            >
+              {itemData.realCount ? (
+                <>
+                  {itemData.count}
+                  <span className="op-4"> : {itemData.realCount}</span>
+                </>
+              ) : (
+                itemData.count
+              )}
+            </div>
           </Col>
           {onEdit || onDelete ? (
-            <Col className="text-end" xs={colSizes.actions}>
-              {onEdit ? (
-                <span
-                  className="acc-btn text-primary"
-                  title="Editar item"
-                  onClick={() => {
-                    onEdit();
-                  }}
-                >
-                  <i className="fa fa-pencil" />
-                </span>
-              ) : null}
-              {onDelete ? (
-                <span
-                  className="acc-btn text-danger"
-                  title="Eliminar item"
-                  onClick={() => {
-                    onDelete();
-                  }}
-                >
-                  <i className="fa fa-times" />
-                </span>
-              ) : null}
+            <Col
+              className="text-end"
+              xs={colSizes.xs.actions}
+              lg={colSizes.lg.actions}
+            >
+              <div className="col-header last">Acciones</div>
+              <div className="col-content last">
+                {onEdit ? (
+                  <span
+                    className="acc-btn text-primary"
+                    title="Editar item"
+                    onClick={() => {
+                      onEdit();
+                    }}
+                  >
+                    <i className="fa fa-pencil" />
+                  </span>
+                ) : null}
+                {onDelete ? (
+                  <span
+                    className="acc-btn text-danger"
+                    title="Eliminar item"
+                    onClick={() => {
+                      onDelete();
+                    }}
+                  >
+                    <i className="fa fa-times" />
+                  </span>
+                ) : null}
+              </div>
             </Col>
           ) : null}
         </Row>
