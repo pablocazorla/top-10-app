@@ -7,8 +7,32 @@ import Stores from "views/stores";
 import Results from "views/results";
 import Tops from "views/tops";
 import password from "data/password";
+//import extractor from "data/extractor";
 
 export default function Home() {
+  /*
+  (() => {
+    const o = {};
+    extractor.stores.forEach((store) => {
+      store.items.forEach((item) => {
+        if (item.isNew) {
+          if (!o[item.name]) {
+            o[item.name] = {
+              name: item.name,
+              editorial: item.editorial,
+            };
+          }
+        }
+      });
+    });
+    const li = [];
+    for (var a in o) {
+      li.push(o[a]);
+    }
+    console.log(JSON.stringify(li));
+  })();
+  */
+
   const [newPassword, setNewPassword] = useState("");
   const [errornewPassword, seterrorNewPassword] = useState(false);
 

@@ -1,5 +1,5 @@
 const indice = {
-  gelato: 850,
+  gelato: 940,
   carcassonne: 5500,
 };
 export default indice;

@@ -275,6 +275,19 @@ const itemOptions = [
     editorial: "El Dragón Azul",
   },
   { name: "Yokai", editorial: "Buró" },
+  { name: "1812 Argentina", editorial: "Neptuno Games" },
+  { name: "Catan: El Duelo", editorial: "Devir" },
+  { name: "Catan: Viajero de las Estrellas", editorial: "Devir" },
+  { name: "Here I Stand: Europa y La Reforma", editorial: "Devir" },
+  { name: "Kitchen Rush", editorial: "Masqueoca" },
+  { name: "Magos y Tabernas", editorial: "Ludocracia" },
+  { name: "Patagoñam", editorial: "Ludogonia" },
+  { name: "YuGiOh Mazos", editorial: "Devir" },
+  { name: "Fantasma Blitz: Menudo susto", editorial: "Devir" },
+  { name: "La Resistencia Ávalon", editorial: "Devir" },
+  { name: "Fantasma Blitz", editorial: "Devir" },
+  { name: "Paris: La Cité de la Lumière", editorial: "Devir" },
+  { name: "Catan Navegantes", editorial: "Devir" },
 ];
 
 export default itemOptions;
