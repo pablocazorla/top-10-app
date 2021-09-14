@@ -288,6 +288,7 @@ const itemOptions = [
   { name: "Fantasma Blitz", editorial: "Devir" },
   { name: "Paris: La Cité de la Lumière", editorial: "Devir" },
   { name: "Catan Navegantes", editorial: "Devir" },
+  { name: "Guau", editorial: "Juegos Nivel" },
 ];
 
 export default itemOptions;

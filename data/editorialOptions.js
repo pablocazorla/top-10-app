@@ -30,6 +30,7 @@ const editorialOptions = [
   { name: "Ludogonia" },
   { name: "Rory's" },
   { name: "AALúdica" },
+  { name: "Juegos Nivel" },
 ];
 
 export default editorialOptions;

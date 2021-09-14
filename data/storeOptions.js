@@ -35,6 +35,9 @@ const storeOptions = [
   {
     name: "El Perro verde",
   },
+  {
+    name: "Xalky",
+  },
 ];
 
 export default storeOptions;
