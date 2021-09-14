@@ -94,7 +94,7 @@ const ItemView = ({
             <div className="col-content unwrap">{itemData.editorial}</div>
           </Col>
           <Col xs={colSizes.xs.priceType} lg={colSizes.lg.priceType}>
-            <div className="col-header">Escala de precio ($ PVP)</div>
+            <div className="col-header unwrap">Escala de precio ($ PVP)</div>
             <div className="col-content unwrap">{priceTypes[pt]}</div>
           </Col>
           {itemData.price <= indice.gelato ? (
