@@ -78,7 +78,7 @@ const itemOptions = [
     name: "Clank: Una Aventura de Construcción de Mazos",
     editorial: "Devir",
   },
-  { name: "Clash of Armies", editorial: "Poncho" },
+  { name: "Clash of Armies", editorial: "Poncho Games" },
   { name: "Con Eso no se Jode", editorial: "Poppular" },
   { name: "Contrast", editorial: "Top Toys" },
   { name: "Corona de Hierro", editorial: "El Dragón Azul" },
@@ -92,7 +92,7 @@ const itemOptions = [
   { name: "Dixit", editorial: "Asmodee" },
   { name: "Dominion 2da edicion", editorial: "Devir" },
   { name: "Dr. Eureka", editorial: "Ruibal" },
-  { name: "Draftosaurus", editorial: "Neptuno" },
+  { name: "Draftosaurus", editorial: "Neptuno Games" },
   { name: "Dungeon & Drinks", editorial: "Buró" },
   { name: "Dígalo con Memes", editorial: "" },
   { name: "El Camarero", editorial: "Maldón" },
@@ -289,6 +289,11 @@ const itemOptions = [
   { name: "Paris: La Cité de la Lumière", editorial: "Devir" },
   { name: "Catan Navegantes", editorial: "Devir" },
   { name: "Guau", editorial: "Juegos Nivel" },
+  { name: "Pequeños Grandes Mechs", editorial: "Devir" },
+  { name: "Roll'n Gol", editorial: "GG juegos de mesa" },
+  { name: "Miau", editorial: "Juegos Nivel" },
+  { name: "No lo testeamos ni un poco", editorial: "Buró" },
+  { name: "Dixit Oddyssey", editorial: "Asmodee" },
 ];
 
 export default itemOptions;
