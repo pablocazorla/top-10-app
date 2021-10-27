@@ -2,9 +2,9 @@ import { useState, useEffect } from "react";
 import { Row, Col, Input } from "reactstrap";
 import ItemView from "components/itemView";
 
-const List = ({ itemList, type }) => {
+const List = ({ itemList, type, onEditItemAllStores }) => {
   const [list, setList] = useState([]);
-  const [orderBy, setOrderBy] = useState("none");
+  const [orderBy, setOrderBy] = useState("price");
   const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
@@ -85,7 +85,14 @@ const List = ({ itemList, type }) => {
       </div>
       <div className="result-list_body">
         {list.map((itemData, k) => {
-          return <ItemView itemData={itemData} key={k} />;
+          return (
+            <ItemView
+              itemData={itemData}
+              key={k}
+              priceEditable
+              onEditItemAllStores={onEditItemAllStores}
+            />
+          );
         })}
         {list.length === 0 ? (
           <div className="text-center text-italic">

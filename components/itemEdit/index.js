@@ -66,10 +66,10 @@ const ItemEdit = ({
       withErrors = true;
       setPriceTypeError(true);
     }
-    if (priceType === "p1" && (price === 0 || price > indice.gelato)) {
-      withErrors = true;
-      setPriceError(true);
-    }
+    // if (priceType === "p1" && (price === 0 || price > indice.gelato)) {
+    //   withErrors = true;
+    //   setPriceError(true);
+    // }
     if (count <= 0) {
       withErrors = true;
       setCountError(true);
@@ -85,9 +85,10 @@ const ItemEdit = ({
       if (isNew) {
         o.isNew = true;
       }
+      console.log(o);
       onSave(o);
     }
-  }, [name, editorial, price, priceType, count, isNew, onSave]);
+  }, [name, editorial, priceType, price, count, isNew, onSave]);
 
   return (
     <div className={classnames("item-box", priceType)}>
@@ -141,7 +142,7 @@ const ItemEdit = ({
                       p === "p0"
                         ? 0
                         : p === "p1"
-                        ? 0
+                        ? indice.gelato - 1
                         : p === "p2"
                         ? indice.gelato + 10
                         : indice.carcassonne + 10;
@@ -168,7 +169,7 @@ const ItemEdit = ({
             </div>
           </Col>
 
-          {priceType === "p1" ? (
+          {/* {priceType === "p1" ? (
             <Col lg={colSizes.price}>
               <div className="col-header">Precio en $</div>
               <div className="col-content">
@@ -186,7 +187,7 @@ const ItemEdit = ({
                 {priceError && <div className="item-error">Error</div>}
               </div>
             </Col>
-          ) : null}
+          ) : null} */}
 
           <Col lg={colSizes.count}>
             <div className="col-header">Cantidad</div>

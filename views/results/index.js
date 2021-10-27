@@ -3,7 +3,7 @@ import { Row, Col } from "reactstrap";
 import indice from "data/indice";
 import List from "./list";
 
-const Resultados = ({ data }) => {
+const Resultados = ({ data, onEditItemAllStores }) => {
   const [items1, setItems1] = useState([]);
   const [items2, setItems2] = useState([]);
 
@@ -52,7 +52,11 @@ const Resultados = ({ data }) => {
     <div className="results-container">
       <Row className="align-items-stretch">
         <Col xl={6} className="pe-xl-5 border-left">
-          <List itemList={items1} type={1} />
+          <List
+            itemList={items1}
+            type={1}
+            onEditItemAllStores={onEditItemAllStores}
+          />
         </Col>
         <Col xl={6} className="ps-xl-5">
           <List itemList={items2} type={2} />

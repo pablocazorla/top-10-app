@@ -115,6 +115,22 @@ export default function Home() {
     },
     [data]
   );
+  const onEditItemAllStores = useCallback(
+    (itemName, itemData) => {
+      let newData = { ...data };
+      newData.stores.forEach((store) => {
+        store.items.forEach((item) => {
+          if (item.name === itemName) {
+            item.price = itemData.price;
+            console.log("entra", item);
+          }
+        });
+      });
+      setData(newData);
+      storage.set(newData);
+    },
+    [data]
+  );
 
   const onDeleteItem = useCallback(
     (storeId, itemId) => {
@@ -208,7 +224,12 @@ export default function Home() {
               },
               {
                 title: "Resultados parciales",
-                content: <Results data={data} />,
+                content: (
+                  <Results
+                    data={data}
+                    onEditItemAllStores={onEditItemAllStores}
+                  />
+                ),
               },
               {
                 title: "Tops",
