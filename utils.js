@@ -1,4 +1,4 @@
-const storageNameDefault = "top10app";
+const storageNameDefault = "top10app_b";
 
 export const storage = (() => {
   return {
@@ -80,6 +80,51 @@ export const downloadFile = (content, filename) => {
   a.setAttribute("href", "data:" + data);
   a.setAttribute("download", filename);
   a.click();
+};
+
+export const dataToStores = (data) => {
+  const stores = [];
+
+  const { items } = data;
+
+  const storePool = {};
+
+  for (let nameIdItem in items) {
+    const storesInItem = items[nameIdItem].stores;
+
+    for (let storesIdInItem in storesInItem) {
+      if (typeof storePool[storesIdInItem] === "undefined") {
+        storePool[storesIdInItem] = { id: storesIdInItem, items: [] };
+      }
+
+      const itemToStore = { ...items[nameIdItem] };
+
+      if (itemToStore.name !== "empty_item") {
+        delete itemToStore.stores;
+
+        const count = storesInItem[storesIdInItem];
+
+        storePool[storesIdInItem].items.push({ ...itemToStore, count });
+      }
+    }
+  }
+
+  for (let storePoolId in storePool) {
+    stores.push(storePool[storePoolId]);
+  }
+
+  // console.log("items", items);
+  // console.log("stores", stores);
+
+  return stores;
+};
+
+export const itemsToList = (itemsObj) => {
+  const list = [];
+  for (let itemId in itemsObj) {
+    list.push(itemsObj[itemId]);
+  }
+  return list;
 };
 
 export default {};

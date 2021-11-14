@@ -71,31 +71,6 @@ export default function Home() {
     }
   }, [configDataStored, loadedconfigDataStored]);
 
-  const onAddStore = useCallback(
-    (name) => {
-      const newData = { ...data };
-      newData.stores.push({
-        name,
-        items: [],
-      });
-      setData(newData);
-      storage.set(newData);
-    },
-    [data]
-  );
-
-  const onDeleteStore = useCallback(
-    (id) => {
-      const newData = { ...data };
-
-      newData.stores.splice(id, 1);
-
-      setData(newData);
-      storage.set(newData);
-    },
-    [data]
-  );
-
   const onAddItem = useCallback(
     (storeId, itemData) => {
       const newData = { ...data };
@@ -141,15 +116,6 @@ export default function Home() {
     },
     [data]
   );
-  const onChangeTab = useCallback(
-    (tabId) => {
-      const newConfig = { ...configData };
-      newConfig.initialTab = tabId;
-      setconfigData(newConfig);
-      storage.set(newConfig, "top10app_config");
-    },
-    [configData]
-  );
 
   const onLoadFileStores = useCallback(
     (dataLoaded) => {
@@ -189,76 +155,43 @@ export default function Home() {
     [data]
   );
 
-  const onSetPassword = useCallback(() => {
-    if (newPassword === password) {
-      const newConfigData = { ...configData };
-      newConfigData.password = newPassword;
-      setconfigData(newConfigData);
-      storage.set(newConfigData, "top10app_config");
-    } else {
-      seterrorNewPassword(true);
-    }
-  }, [configData, newPassword]);
-
   return (
     <Layout>
-      {loadedconfigDataStored &&
-        (configData.password === password ? (
-          <Tabs
-            initialTab={configData.initialTab}
-            onChangeTab={onChangeTab}
-            tabs={[
-              {
-                title: "Cargar tienda",
-                content: (
-                  <Stores
-                    data={data}
-                    onAddStore={onAddStore}
-                    onDeleteStore={onDeleteStore}
-                    onAddItem={onAddItem}
-                    onEditItem={onEditItem}
-                    onDeleteItem={onDeleteItem}
-                    onLoadFileStores={onLoadFileStores}
-                  />
-                ),
-              },
-              {
-                title: "Resultados parciales",
-                content: (
-                  <Results
-                    data={data}
-                    onEditItemAllStores={onEditItemAllStores}
-                  />
-                ),
-              },
-              {
-                title: "Tops",
-                content: <Tops data={data} />,
-              },
-            ]}
-          />
-        ) : (
-          <div className="admin-pass-box">
-            <label className="text-bold">Contraseña:</label>
-            <Input
-              type="password"
-              value={newPassword}
-              onChange={(e) => {
-                seterrorNewPassword(false);
-                setNewPassword(e.target.value);
-              }}
-              className="mb-3"
-            />
-            {errornewPassword && (
-              <div className="text-center text-danger py-2">
-                Contraseña incorrecta
-              </div>
-            )}
-            <Button color="primary" block onClick={onSetPassword}>
-              Ingresar
-            </Button>
-          </div>
-        ))}
+      {loadedconfigDataStored && (
+        <Tabs
+          initialTab={configData.initialTab}
+          onChangeTab={onChangeTab}
+          tabs={[
+            {
+              title: "Cargar tienda",
+              content: (
+                <Stores
+                  data={data}
+                  onAddStore={onAddStore}
+                  onDeleteStore={onDeleteStore}
+                  onAddItem={onAddItem}
+                  onEditItem={onEditItem}
+                  onDeleteItem={onDeleteItem}
+                  onLoadFileStores={onLoadFileStores}
+                />
+              ),
+            },
+            {
+              title: "Resultados parciales",
+              content: (
+                <Results
+                  data={data}
+                  onEditItemAllStores={onEditItemAllStores}
+                />
+              ),
+            },
+            {
+              title: "Tops",
+              content: <Tops data={data} />,
+            },
+          ]}
+        />
+      )}
     </Layout>
   );
 }

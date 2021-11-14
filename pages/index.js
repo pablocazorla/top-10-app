@@ -1,60 +1,46 @@
 import { useState, useEffect, useCallback } from "react";
+import { defaultData } from "config";
 import Layout from "layout";
 import { storage } from "utils";
+import { Input, Button } from "reactstrap";
 import Tabs from "components/tabs";
-import Stores from "views/stores";
+import LoadStores from "views/loadStores";
+import PriceEditor from "views/priceEditor";
+import Results from "views/results";
+import Tops from "views/tops";
+import password from "data/password";
+import itemOptions from "data/itemOptions";
+//import extractor from "data/extractor";
 
 export default function Home() {
+  // LOAD DATA ***************************
   const [data, setData] = useState({
-    stores: [],
+    ...defaultData,
   });
-
-  const [loadedStored, setLoadedStored] = useState(false);
+  const [loadedData, setLoadedData] = useState(false);
 
   const dataStored = storage.get();
 
   useEffect(() => {
-    if (dataStored && !loadedStored) {
+    if (dataStored && !loadedData) {
       if (dataStored !== "none") {
         setData(dataStored);
-        setLoadedStored(true);
       } else {
-        // storage.set({
-        //   stores: [],
-        // });
         storage.set({
-          stores: [
-            {
-              name: "Invictvs",
-              items: [
-                {
-                  name: "La Tripulación",
-                  editorial: "Devir",
-                  price: 3300,
-                  count: 6,
-                },
-                {
-                  name: "Catán",
-                  editorial: "Devir",
-                  price: 7000,
-                  count: 24,
-                },
-              ],
-            },
-          ],
+          ...defaultData,
         });
-        setLoadedStored(true);
       }
+      setLoadedData(true);
     }
-  }, [dataStored, loadedStored]);
+  }, [dataStored, loadedData]);
 
+  // END LOAD DATA ***************************
+
+  // STORES ***************************
   const onAddStore = useCallback(
-    (name) => {
+    (id) => {
       const newData = { ...data };
-      newData.stores.push({
-        name,
-        items: [],
-      });
+      newData.items.empty_item.stores[id] = 1;
       setData(newData);
       storage.set(newData);
     },
@@ -62,31 +48,53 @@ export default function Home() {
   );
 
   const onDeleteStore = useCallback(
-    (id) => {
+    (idStore) => {
+      console.log("idStore", idStore);
       const newData = { ...data };
-
-      newData.stores.splice(id, 1);
-
+      for (let idItem in newData.items) {
+        if (newData.items[idItem].stores[idStore]) {
+          delete newData.items[idItem].stores[idStore];
+          if (
+            Object.entries(newData.items[idItem].stores).length === 0 &&
+            idItem !== "empty_item"
+          ) {
+            delete newData.items[idItem];
+          }
+        }
+      }
       setData(newData);
       storage.set(newData);
     },
     [data]
   );
+  // END STORES ***************************
 
+  // ITEMS ***************************
   const onAddItem = useCallback(
-    (storeId, itemData) => {
+    (idStore, itemData) => {
+      const newItemData = { ...itemData };
+      const { name, count } = newItemData;
+      delete newItemData.count;
+
       const newData = { ...data };
-      newData.stores[storeId].items.push(itemData);
+
+      if (!newData.items[name]) {
+        newData.items[name] = { ...newItemData, stores: {} };
+      }
+
+      newData.items[name].stores[idStore] = count;
+
       setData(newData);
       storage.set(newData);
     },
     [data]
   );
-
   const onEditItem = useCallback(
-    (storeId, itemId, itemData) => {
+    (idStore, idItem, itemData) => {
       const newData = { ...data };
-      newData.stores[storeId].items[itemId] = itemData;
+
+      newData.items[idItem].stores[idStore] = itemData.count;
+
       setData(newData);
       storage.set(newData);
     },
@@ -94,30 +102,84 @@ export default function Home() {
   );
 
   const onDeleteItem = useCallback(
-    (storeId, itemId) => {
+    (idStore, idItem) => {
+      console.log("idStore", idStore);
+      console.log("idItem", idItem);
       const newData = { ...data };
-      newData.stores[storeId].items.splice(itemId, 1);
+      if (newData.items[idItem] && newData.items[idItem].stores[idStore]) {
+        delete newData.items[idItem].stores[idStore];
+        if (Object.entries(newData.items[idItem].stores).length === 0) {
+          delete newData.items[idItem];
+        }
+        setData(newData);
+        storage.set(newData);
+      }
+    },
+    [data]
+  );
+  const onEditItemPrice = useCallback(
+    (idItem, itemData) => {
+      // const newData = { ...data };
+      // newData.items[idItem].stores[idStore] = itemData.count;
+      // setData(newData);
+      // storage.set(newData);
+    },
+    [data]
+  );
+  // END ITEMS ***************************
+
+  // INDICES ***************************
+  const onSetIndice = useCallback(
+    (type, value) => {
+      const newData = { ...data };
+      newData.config.indices[type] = value;
       setData(newData);
       storage.set(newData);
     },
     [data]
   );
+  // END INDICES ***************************
+
+  // TAB VIEW ***************************
+  const onChangeTabView = useCallback(
+    (tabId) => {
+      const newData = { ...data };
+      newData.config.initialTab = tabId;
+      setData(newData);
+      storage.set(newData);
+    },
+    [data]
+  );
+  // END TAB VIEW ***************************
+
+  console.log("data", data.items);
 
   return (
     <Layout>
       <Tabs
+        initialTab={data.config.initialTab}
+        onChangeTab={onChangeTabView}
         tabs={[
           {
             title: "Cargar tienda",
             content: (
-              <Stores
-                isAdmin={false}
+              <LoadStores
                 data={data}
                 onAddStore={onAddStore}
                 onDeleteStore={onDeleteStore}
                 onAddItem={onAddItem}
                 onEditItem={onEditItem}
                 onDeleteItem={onDeleteItem}
+              />
+            ),
+          },
+          {
+            title: "Precios",
+            content: (
+              <PriceEditor
+                data={data}
+                onEditItemPrice={onEditItemPrice}
+                onSetIndice={onSetIndice}
               />
             ),
           },
