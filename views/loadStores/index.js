@@ -3,6 +3,7 @@ import { Button, Row, Col, Collapse } from "reactstrap";
 import { downloadFile, camelize, dataToStores, itemsToList } from "utils";
 import Store from "./store/store";
 import CreateStore from "./store/createStore";
+import LoadStoreJson from "./loadStoreJson";
 //import LoadStore from "./store/loadStore";
 
 const LoadStores = ({
@@ -12,6 +13,7 @@ const LoadStores = ({
   onAddItem,
   onEditItem,
   onDeleteItem,
+  onLoadFileStores,
 }) => {
   const [allOpen, setAllOpen] = useState(true);
   const toggleAllOpen = () => setAllOpen(!allOpen);
@@ -76,6 +78,7 @@ const LoadStores = ({
         );
       })}
       <CreateStore data={data} onAddStore={onAddStore} />
+      <LoadStoreJson onLoadFileStores={onLoadFileStores} />
     </div>
   );
 };

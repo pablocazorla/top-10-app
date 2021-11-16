@@ -82,7 +82,6 @@ for (var a in users) {
   text += "  Total: " + users[a].length + " juegos -> $" + part + "\n\n";
 }
 
-console.log(text);
 */
 const colSizes = {
   lg: {

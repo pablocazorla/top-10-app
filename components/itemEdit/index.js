@@ -85,7 +85,6 @@ const ItemEdit = ({
       if (isNew) {
         o.isNew = true;
       }
-      console.log(o);
       onSave(o);
     }
   }, [name, editorial, priceType, price, count, isNew, onSave]);

@@ -29,7 +29,6 @@ export default function Home() {
     for (var a in o) {
       li.push(o[a]);
     }
-    console.log(JSON.stringify(li));
   })();
   */
 
@@ -97,7 +96,6 @@ export default function Home() {
         store.items.forEach((item) => {
           if (item.name === itemName) {
             item.price = itemData.price;
-            console.log("entra", item);
           }
         });
       });

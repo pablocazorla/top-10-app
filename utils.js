@@ -113,9 +113,6 @@ export const dataToStores = (data) => {
     stores.push(storePool[storePoolId]);
   }
 
-  // console.log("items", items);
-  // console.log("stores", stores);
-
   return stores;
 };
 

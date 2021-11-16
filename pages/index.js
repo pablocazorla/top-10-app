@@ -49,7 +49,6 @@ export default function Home() {
 
   const onDeleteStore = useCallback(
     (idStore) => {
-      console.log("idStore", idStore);
       const newData = { ...data };
       for (let idItem in newData.items) {
         if (newData.items[idItem].stores[idStore]) {
@@ -103,8 +102,6 @@ export default function Home() {
 
   const onDeleteItem = useCallback(
     (idStore, idItem) => {
-      console.log("idStore", idStore);
-      console.log("idItem", idItem);
       const newData = { ...data };
       if (newData.items[idItem] && newData.items[idItem].stores[idStore]) {
         delete newData.items[idItem].stores[idStore];
@@ -114,15 +111,6 @@ export default function Home() {
         setData(newData);
         storage.set(newData);
       }
-    },
-    [data]
-  );
-  const onEditItemPrice = useCallback(
-    (idItem, itemData) => {
-      // const newData = { ...data };
-      // newData.items[idItem].stores[idStore] = itemData.count;
-      // setData(newData);
-      // storage.set(newData);
     },
     [data]
   );
@@ -140,6 +128,67 @@ export default function Home() {
   );
   // END INDICES ***************************
 
+  // PRICES ***************************
+  const onEditPriceType = useCallback(
+    (idItem, price, priceNum) => {
+      const newData = { ...data };
+      newData.items[idItem].price = price;
+      if (price === "A") {
+        newData.items[idItem].priceNum = priceNum;
+      } else {
+        delete newData.items[idItem].priceNum;
+      }
+      setData(newData);
+      storage.set(newData);
+    },
+    [data]
+  );
+  const onEditPriceNum = useCallback(
+    (idItem, priceNum) => {
+      const newData = { ...data };
+      newData.items[idItem].priceNum = priceNum;
+      setData(newData);
+      storage.set(newData);
+    },
+    [data]
+  );
+  // END PRICES ***************************
+
+  // Load file ***************************
+
+  const onLoadFileStores = useCallback(
+    (obj) => {
+      const newData = { ...data, config: obj.config };
+      for (let idItem in obj.items) {
+        if (idItem === "empty_item") {
+          newData.items.empty_item.stores = {
+            ...newData.items.empty_item.stores,
+            ...obj.items.empty_item.stores,
+          };
+        } else {
+          if (newData.items[idItem]) {
+            newData.items[idItem].editorial = obj.items[idItem].editorial;
+            newData.items[idItem].price = obj.items[idItem].price;
+            if (obj.items[idItem].priceNum) {
+              newData.items[idItem].priceNum = obj.items[idItem].priceNum;
+            }
+            for (let idStore in obj.items[idItem].stores) {
+              newData.items[idItem].stores[idStore] =
+                obj.items[idItem].stores[idStore];
+            }
+          } else {
+            newData.items[idItem] = obj.items[idItem];
+          }
+        }
+      }
+      setData(newData);
+      storage.set(newData);
+    },
+    [data]
+  );
+
+  // END file ***************************
+
   // TAB VIEW ***************************
   const onChangeTabView = useCallback(
     (tabId) => {
@@ -152,8 +201,6 @@ export default function Home() {
   );
   // END TAB VIEW ***************************
 
-  console.log("data", data.items);
-
   return (
     <Layout>
       <Tabs
@@ -161,7 +208,7 @@ export default function Home() {
         onChangeTab={onChangeTabView}
         tabs={[
           {
-            title: "Cargar tienda",
+            title: "1. Cargar tiendas",
             content: (
               <LoadStores
                 data={data}
@@ -170,18 +217,24 @@ export default function Home() {
                 onAddItem={onAddItem}
                 onEditItem={onEditItem}
                 onDeleteItem={onDeleteItem}
+                onLoadFileStores={onLoadFileStores}
               />
             ),
           },
           {
-            title: "Precios",
+            title: "2. Editar precios",
             content: (
               <PriceEditor
                 data={data}
-                onEditItemPrice={onEditItemPrice}
+                onEditPriceType={onEditPriceType}
+                onEditPriceNum={onEditPriceNum}
                 onSetIndice={onSetIndice}
               />
             ),
+          },
+          {
+            title: "3. Descargar Tops",
+            content: <Results data={data} />,
           },
         ]}
       />
