@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { Button, Row, Col, Collapse } from "reactstrap";
+import { Button, Row, Col, Modal, ModalBody } from "reactstrap";
 import { downloadFile, camelize, dataToStores, itemsToList } from "utils";
 import Store from "./store/store";
 import CreateStore from "./store/createStore";
@@ -14,11 +14,15 @@ const LoadStores = ({
   onEditItem,
   onDeleteItem,
   onLoadFileStores,
+  onDeleteAll,
 }) => {
   const [allOpen, setAllOpen] = useState(true);
   const toggleAllOpen = () => setAllOpen(!allOpen);
 
   const [stores, setStores] = useState([]);
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const toggleModal = () => setModalOpen(!modalOpen);
 
   useEffect(() => {
     setStores(dataToStores(data));
@@ -48,6 +52,15 @@ const LoadStores = ({
         ) : null}
         {stores.length > 0 ? (
           <Col className="text-end">
+            <Button
+              className="me-2"
+              size="sm"
+              color="danger"
+              onClick={toggleModal}
+            >
+              <i className="fa fa-times me-2" />
+              Borrar todo
+            </Button>
             <Button
               size="sm"
               color="primary"
@@ -79,6 +92,25 @@ const LoadStores = ({
       })}
       <CreateStore data={data} onAddStore={onAddStore} />
       <LoadStoreJson onLoadFileStores={onLoadFileStores} />
+      <Modal isOpen={modalOpen} toggle={toggleModal} centered>
+        <ModalBody className="text-center py-5">
+          <h3 className="mb-4">¿Borrar todos los datos?</h3>
+          <div>
+            <Button color="link" onClick={toggleModal}>
+              Cancelar
+            </Button>{" "}
+            <Button
+              color="danger"
+              onClick={() => {
+                toggleModal();
+                onDeleteAll();
+              }}
+            >
+              Borrar
+            </Button>
+          </div>
+        </ModalBody>
+      </Modal>
     </div>
   );
 };

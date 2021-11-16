@@ -189,6 +189,12 @@ export default function Home() {
 
   // END file ***************************
 
+  const onDeleteAll = () => {
+    const newData = { ...defaultData };
+    setData(newData);
+    storage.set(newData);
+  };
+
   // TAB VIEW ***************************
   const onChangeTabView = useCallback(
     (tabId) => {
@@ -218,6 +224,7 @@ export default function Home() {
                 onEditItem={onEditItem}
                 onDeleteItem={onDeleteItem}
                 onLoadFileStores={onLoadFileStores}
+                onDeleteAll={onDeleteAll}
               />
             ),
           },
