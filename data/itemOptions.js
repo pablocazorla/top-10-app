@@ -57,7 +57,7 @@ const itemOptions = [
   { name: "Bariesus", editorial: "Juegosdemesa.com.ar", price: "B" },
   { name: "Bears vs Babies", editorial: "Asmodee", price: "C" },
   { name: "Bienvenido al Dungeon", editorial: "Buró", price: "B" },
-  { name: "Bretón", editorial: "Tinkuy", price: "A" },
+  { name: "Bretón", editorial: "Tinkuy", price: "A", priceNum: 490 },
   { name: "Cacao Diamante", editorial: "Devir", price: "B" },
   { name: "Candy Shop", editorial: "Juegosdemesa.com.ar", price: "B" },
   { name: "Caracoles", editorial: "Azteca", price: "B" },
@@ -106,7 +106,7 @@ const itemOptions = [
   { name: "Dr. Eureka", editorial: "Ruibal", price: "B" },
   { name: "Draftosaurus", editorial: "Neptuno Games", price: "B" },
   { name: "Dungeon & Drinks", editorial: "Buró", price: "B" },
-  { name: "Dígalo con Memes", editorial: "", price: "B" },
+  { name: "Dígalo con Memes", editorial: "Digalo", price: "B" },
   { name: "El Camarero", editorial: "Maldón", price: "B" },
   { name: "El Erudito", editorial: "Maldón", price: "B" },
   { name: "El Ilustrado", editorial: "Maldón", price: "B" },
@@ -147,7 +147,7 @@ const itemOptions = [
   { name: "Gualicho", editorial: "GG juegos de mesa", price: "B" },
   { name: "HDP - Hasta Donde Puedas", editorial: "Buró", price: "B" },
   { name: "Hadara", editorial: "Devir", price: "C" },
-  { name: "Haikus", editorial: "Tinkuy", price: "A" },
+  { name: "Haikus", editorial: "Tinkuy", price: "A", priceNum: 522 },
   {
     name: "Hansa Teutónica Big Box - en español",
     editorial: "Masqueoca",
@@ -215,14 +215,19 @@ const itemOptions = [
     editorial: "Asmodee",
     price: "C",
   },
-  { name: "Mazo Argento", editorial: "Poppular", price: "A" },
+  {
+    name: "Mazo Argento",
+    editorial: "Poppular",
+    price: "A",
+    priceNum: 550,
+  },
   { name: "Medusa el Desafio", editorial: "Epica Juegos", price: "B" },
   { name: "Meme vs 100Cia", editorial: "Neptuno", price: "B" },
   { name: "Mochilas Jugonas", editorial: "Invictvs", price: "C" },
   { name: "Montañas de la Locura", editorial: "Buró", price: "C" },
   { name: "Munchkin", editorial: "Buró", price: "B" },
   { name: "Musa", editorial: "El Dragón Azul", price: "B" },
-  { name: "Myriorama", editorial: "Tinkuy", price: "A" },
+  { name: "Myriorama", editorial: "Tinkuy", price: "A", priceNum: 550 },
   { name: "Mysterium", editorial: "Asmodee", price: "C" },
   { name: "NLTNUP", editorial: "Buró", price: "B" },
   { name: "Nessos", editorial: "Buró", price: "B" },
@@ -237,7 +242,7 @@ const itemOptions = [
     price: "C",
   },
   { name: "Patagomar", editorial: "Ludogonia", price: "B" },
-  { name: "Planeta", editorial: "Neptuno", price: "C" },
+  { name: "Planeta", editorial: "Neptuno Games", price: "C" },
   { name: "Plenus", editorial: "Devir", price: "B" },
   { name: "Pulsar 2849", editorial: "Devir", price: "C" },
   { name: "Pócimas y Brebajes", editorial: "Devir", price: "C" },
@@ -307,16 +312,32 @@ const itemOptions = [
   { name: "Yokai", editorial: "Buró", price: "B" },
   { name: "1812 Argentina", editorial: "Neptuno Games", price: "B" },
   { name: "Catan: El Duelo", editorial: "Devir", price: "C" },
-  { name: "Catan: Viajero de las Estrellas", editorial: "Devir", price: "C" },
-  { name: "Here I Stand: Europa y La Reforma", editorial: "Devir", price: "C" },
+  {
+    name: "Catan: Viajero de las Estrellas",
+    editorial: "Devir",
+    price: "C",
+  },
+  {
+    name: "Here I Stand: Europa y La Reforma",
+    editorial: "Devir",
+    price: "C",
+  },
   { name: "Kitchen Rush", editorial: "Masqueoca", price: "C" },
   { name: "Magos y Tabernas", editorial: "Ludocracia", price: "B" },
   { name: "Patagoñam", editorial: "Ludogonia", price: "B" },
   { name: "YuGiOh Mazos", editorial: "Devir", price: "B" },
-  { name: "Fantasma Blitz: Menudo susto", editorial: "Devir", price: "B" },
+  {
+    name: "Fantasma Blitz: Menudo susto",
+    editorial: "Devir",
+    price: "B",
+  },
   { name: "La Resistencia Ávalon", editorial: "Devir", price: "B" },
   { name: "Fantasma Blitz", editorial: "Devir", price: "B" },
-  { name: "Paris: La Cité de la Lumière", editorial: "Devir", price: "B" },
+  {
+    name: "Paris: La Cité de la Lumière",
+    editorial: "Devir",
+    price: "B",
+  },
   { name: "Catan Navegantes", editorial: "Devir", price: "C" },
   { name: "Guau", editorial: "Juegos Nivel", price: "B" },
   { name: "Pequeños Grandes Mechs", editorial: "Devir", price: "B" },
@@ -324,6 +345,79 @@ const itemOptions = [
   { name: "Miau", editorial: "Juegos Nivel", price: "B" },
   { name: "No lo testeamos ni un poco", editorial: "Buró", price: "B" },
   { name: "Dixit Oddyssey", editorial: "Asmodee", price: "C" },
+  {
+    name: "Viaje al centro de la Tierra",
+    editorial: "Top Toys",
+    price: "B",
+  },
+  { name: "Taco Gato Cabra Queso Pizza", editorial: "Buró", price: "B" },
+  { name: "Código Enigma", editorial: "Juegosdemesa.com.ar", price: "B" },
+  {
+    name: "Si Se Pai",
+    editorial: "Juegosdemesa.com.ar",
+    price: "A",
+    priceNum: 670,
+  },
+  {
+    name: "Koi Koi",
+    editorial: "Juegosdemesa.com.ar",
+    price: "A",
+    priceNum: 936,
+  },
+  { name: "Keyforge Mutación Masiva", editorial: "Asmodee", price: "C" },
+  { name: "Dr Eureka", editorial: "Ruibal", price: "B" },
+  { name: "Bleff", editorial: "Ruibal", price: "B" },
+  { name: "Lucky Numbers", editorial: "Devir", price: "B" },
+  { name: "Uno", editorial: "Uno", price: "A", priceNum: 520 },
+  {
+    name: "Fast Food - Sale con fritas",
+    editorial: "Juegosdemesa.com.ar",
+    price: "B",
+  },
+  { name: "Skull King", editorial: "Devir", price: "B" },
+  { name: "Pirámide del Sol", editorial: "Buró", price: "B" },
+  { name: "Sushi Go Party", editorial: "Devir", price: "B" },
+  { name: "Mariposas", editorial: "Devir", price: "C" },
+  { name: "Coloretto", editorial: "Asmodee", price: "B" },
+  {
+    name: "Memotest Fauna Patagonia",
+    editorial: "Ludogonia",
+    price: "A",
+    priceNum: 420,
+  },
 ];
+/*
+const d = {};
+
+// 1. Edit
+const p = {};
+for (var a in d.items) {
+  delete d.items[a].stores;
+  p[a] = d.items[a];
+}
+
+const newList = [];
+itemOptions.forEach((item) => {
+  const { name } = item;
+  if (p[name]) {
+    newList.push(p[name]);
+  } else {
+    newList.push(item);
+  }
+});
+
+// 2. Incorporar nuevos
+const o = {};
+for (var a in d.items) {
+  if (d.items[a].isNew) {
+    delete d.items[a].isNew;
+    delete d.items[a].stores;
+    newList.push(d.items[a]);
+  }
+}
+console.log(itemOptions.length);
+console.log(newList.length);
+console.log(JSON.stringify(newList));
+*/
 
 export default itemOptions;
